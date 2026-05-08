@@ -51,6 +51,7 @@ For GKI installation, please follow the official guide:
 
 - 🔐 **KernelSU**: A root solution for Android GKI devices that works in kernel mode and grants root permission to userspace applications directly in kernel space
 - 🛡️ **SUSFS**: An addon root hiding kernel patches and userspace module for KernelSU
+- 👻 **ZeroMount**: A mountless file injection driver allowing KernelSU to hide module modifications without traditional mounts
 
 ---
 
@@ -60,6 +61,7 @@ For GKI installation, please follow the official guide:
 - 🚀 **KernelSU-Next**: Developed by [rifsxd](https://github.com/KernelSU-Next/KernelSU-Next)
 - ✨ **Magic-KSU**: Developed by [5ec1cff](https://github.com/5ec1cff/KernelSU)
 - 🛡️ **SUSFS**: Developed by [simonpunk](https://gitlab.com/simonpunk/susfs4ksu.git)
+- 👻 **ZeroMount**: Developed by [Enginex0](https://github.com/Enginex0/zeromount)
 - 🛡️ **Baseband-guard (BBG)**: Developed by [vc-teahouse](https://github.com/vc-teahouse/Baseband-guard)
 - 📦 **SUSFS Module**: Developed by [sidex15](https://github.com/sidex15)
 - 👑 **Sultan Kernels**: Developed by [kerneltoast](https://github.com/kerneltoast)
