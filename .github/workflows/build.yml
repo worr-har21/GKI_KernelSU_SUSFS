@@ -104,7 +104,7 @@ jobs:
         kernel_version: ${{ steps.parse.outputs.kernel_version }}
 
     - name: Baseband Guard
-      if: contains(inputs.feature_set, 'BBG') || inputs.feature_set == 'FULL'
+      if: (contains(inputs.feature_set, 'BBG') || inputs.feature_set == 'FULL') && false
       uses: ./.github/actions/bbg
 
     - name: Setup Networking
@@ -125,6 +125,7 @@ jobs:
       with:
         kernel_version: ${{ steps.parse.outputs.kernel_version }}
         android_version: ${{ steps.parse.outputs.android_version }}
+        sublevel: ${{ steps.extract.outputs.sublevel }}
 
     - name: Apply Module Check Bypass
       if: ${{ inputs.variant == 'Bypass' }}
@@ -190,7 +191,6 @@ jobs:
       with:
         android_version: ${{ steps.parse.outputs.android_version }}
         kernel_version: ${{ steps.parse.outputs.kernel_version }}
-        os_patch_level: ${{ steps.parse.outputs.os_patch_level }}
         sublevel: ${{ steps.extract.outputs.sublevel }}
 
     - name: Restore build caches (ccache, bazel, bazel-disk, lto)

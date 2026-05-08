@@ -18,6 +18,13 @@ runs:
         echo "===================="
         echo "=== ccache stats ==="
         echo "===================="
+        
+        if ! command -v ccache >/dev/null 2>&1; then
+          echo "⚠️  ccache not installed, skipping ccache stats"
+          echo "===================="
+          exit 0
+        fi
+        
         ccache -s || true
         echo "====================="
         echo "=== ccache config ==="
@@ -25,12 +32,6 @@ runs:
         ccache -p || true
         echo "====================="
 
-        if command -v ccache >/dev/null 2>&1; then
-          echo "ccache is installed"
-        else
-          echo "ccache not installed, exiting"
-          exit 0
-        fi
         STATS="$(ccache -s)"
         
         CACHEABLE=$(echo "$STATS" | awk '/Cacheable calls:/ {

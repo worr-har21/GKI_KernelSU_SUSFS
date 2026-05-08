@@ -7,6 +7,9 @@ inputs:
   android_version:
     description: 'Android version (e.g., android14)'
     required: true
+  sublevel:
+    description: 'Sublevel of kernel version (e.g., 1)'
+    required: true
 
 runs:
   using: "composite"
@@ -31,14 +34,11 @@ runs:
 
     - name: Add RUST build configs
       shell: bash
-      if: ${{ inputs.kernel_version == '6.12' && false }}
+      if: ${{ inputs.kernel_version == '6.12' && inputs.android_version == 'android16' && inputs.sublevel <= '38' }}
       run: |
         set -euo pipefail
         echo "Add Build based configs"
         cat >> "${{ github.workspace }}/wild_gki.fragment" << 'EOF'
-        CONFIG_ANDROID_BINDER_IPC_RUST=m
-        CONFIG_CMDLINE="module_blacklist=rust_binder"
-        CONFIG_CMDLINE_EXTEND=y
-        CONFIG_CMDLINE_FORCE=n
-        CONFIG_RUST=y
+        # CONFIG_ANDROID_BINDER_IPC_RUST is not set
+        CONFIG_ANDROID_BINDER_IPC_RUST_DUMMY=m
         EOF

@@ -18,7 +18,7 @@ runs:
       shell: bash
       if: |
         (inputs.kernel_version == '5.10' && inputs.android_version == 'android12') ||
-        (inputs.kernel_version == '5.15' && inputs.android_version == 'android13') || 
+        (inputs.kernel_version == '5.10' && inputs.android_version == 'android13') || 
         (inputs.kernel_version == '5.15' && inputs.android_version == 'android13')
       working-directory: ${{ github.workspace }}
       run: |
@@ -87,7 +87,7 @@ runs:
         echo "=== ccache config ==="
         echo "====================="
         ccache -p
-        echo "=====================
+        echo "====================="
 
         echo "✅ ccache ready"
         echo "CCACHE_DIR: $CCACHE_DIR"

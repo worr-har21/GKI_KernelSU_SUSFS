@@ -178,10 +178,10 @@ runs:
       working-directory: ${{ github.workspace }}/kernel/common
       run: |
         echo "Applying 6.12 SUSFS fixes"
-        #if [ "${{ inputs.sublevel }}" -le "77" ]; then
-        #  echo "Applying exec.c Android 16 6.12 Fake Patch"
-        #  sed -i '/^#include <linux\/dma-buf.h>$/d' fs/exec.c
-        #fi
+        if [ "${{ inputs.sublevel }}" -ge "58" ]; then
+          echo "Applying exec.c Android 16 6.12 Fake Patch"
+          sed -i '/^#include <linux\/dma-buf.h>$/d' fs/exec.c
+        fi
 
     - name: Apply Kernel SUSFS Patches
       shell: bash
@@ -260,10 +260,6 @@ runs:
       working-directory: ${{ github.workspace }}/kernel/common
       run: |
         echo "Reverting 6.6 Fake Patches"
-        #if [ "${{ inputs.sublevel }}" -le "46" ]; then
-        #  echo "Reverting namespace.c Android 15 6.6 Fake Patch"
-        #  sed -i '/^#include <trace\/hooks\/fs.h>$/d' fs/namespace.c
-        #fi
         if [ "${{ inputs.sublevel }}" -le "58" ]; then
           echo "Reverting task_mmu.c Android 15 6.6 Fake Patch"
           sed -i '/unsigned int nr_subpages.*__PAGE_SIZE.*PAGE_SIZE/d' fs/proc/task_mmu.c
@@ -280,10 +276,10 @@ runs:
       working-directory: ${{ github.workspace }}/kernel/common
       run: |
         echo "Reverting 6.12 Fake Patches"
-        #if [ "${{ inputs.sublevel }}" -le "77" ]; then
-        #  echo "Reverting exec.c Android 16 6.12 Fake Patch"
-        #  sed -i '/^#include <linux\/ksh.h>$/a #include <linux/dma-buf.h>' fs/exec.c
-        #fi
+        if [ "${{ inputs.sublevel }}" -ge "58" ]; then
+          echo "Reverting exec.c Android 16 6.12 Fake Patch"
+          sed -i '/linux\/ksh.h/a #include <linux/dma-buf.h>' fs/exec.c
+        fi
 
     - name: Apply Kernel SUSFS Patches
       shell: bash
