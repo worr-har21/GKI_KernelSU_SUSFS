@@ -32,13 +32,3 @@ runs:
           echo "This kernel/android combination might not be supported by ZeroMount yet. Skipping."
         fi
 
-<<<<<<< HEAD
-=======
-    - name: Enable zeromount Config
-      shell: bash
-      working-directory: ${{ github.workspace }}/kernel
-      run: |
-        cat >> "${{ github.workspace }}/wild_gki.fragment" << 'EOF'
-        CONFIG_ZEROMOUNT=y
-        EOF
->>>>>>> 427136e813a384f41390de328a4b63c0c944f234
