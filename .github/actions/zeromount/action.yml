@@ -31,3 +31,12 @@ runs:
           echo "ZeroMount patch not found: $PATCH_FILE"
           echo "This kernel/android combination might not be supported by ZeroMount yet. Skipping."
         fi
+
+    - name: Enable zeromount Config
+      shell: bash
+      working-directory: ${{ github.workspace }}/kernel
+      run: |
+        cat >> "${{ github.workspace }}/wild_gki.fragment" << 'EOF'
+        # ZerMount Configuration
+        CONFIG_ZEROMOUNT=y
+        EOF
