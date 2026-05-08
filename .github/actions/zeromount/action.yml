@@ -37,6 +37,5 @@ runs:
       working-directory: ${{ github.workspace }}/kernel
       run: |
         cat >> "${{ github.workspace }}/wild_gki.fragment" << 'EOF'
-        # ZerMount Configuration
         CONFIG_ZEROMOUNT=y
         EOF
