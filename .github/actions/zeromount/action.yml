@@ -1,0 +1,33 @@
+name: Setup ZeroMount
+description: Clone and apply ZeroMount kernel patches
+inputs:
+  android_version:
+    description: 'Android version (e.g., android14)'
+    required: true
+  kernel_version:
+    description: 'Kernel version (e.g., 6.1)'
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Clone Super-Builders Repo
+      shell: bash
+      run: |
+        if [ ! -d "${{ github.workspace }}/super_builders_repo" ]; then
+          echo "Cloning Enginex0/Super-Builders..."
+          git clone https://github.com/Enginex0/Super-Builders.git "${{ github.workspace }}/super_builders_repo"
+        fi
+
+    - name: Apply ZeroMount Patches
+      shell: bash
+      working-directory: ${{ github.workspace }}/kernel/common
+      run: |
+        PATCH_FILE="${{ github.workspace }}/super_builders_repo/${{ inputs.android_version }}-${{ inputs.kernel_version }}/KernelSU-Next/patches/60_zeromount-${{ inputs.android_version }}-${{ inputs.kernel_version }}.patch"
+        if [ -f "$PATCH_FILE" ]; then
+          echo "Applying ZeroMount patch: $PATCH_FILE"
+          patch -p1 -F3 --no-backup-if-mismatch < "$PATCH_FILE"
+        else
+          echo "ZeroMount patch not found: $PATCH_FILE"
+          echo "This kernel/android combination might not be supported by ZeroMount yet. Skipping."
+        fi
