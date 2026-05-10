@@ -16,14 +16,14 @@ runs:
       run: |
         if [ ! -d "${{ github.workspace }}/super_builders_repo" ]; then
           echo "Cloning Enginex0/Super-Builders..."
-          git clone https://github.com/Enginex0/Super-Builders.git "${{ github.workspace }}/super_builders_repo"
+          git clone https://github.com/hworr/GKI_SUSFS_ZM_BBG_NET_DS.git "${{ github.workspace }}/super_builders_repo"
         fi
 
     - name: Apply ZeroMount Patches
       shell: bash
       working-directory: ${{ github.workspace }}/kernel/common
       run: |
-        PATCH_FILE="${{ github.workspace }}/super_builders_repo/${{ inputs.android_version }}-${{ inputs.kernel_version }}/KernelSU-Next/patches/60_zeromount-${{ inputs.android_version }}-${{ inputs.kernel_version }}.patch"
+        PATCH_FILE="${{ github.workspace }}/super_builders_repo/super_builders_repo/${{ inputs.android_version }}-${{ inputs.kernel_version }}/KernelSU-Next/patches/60_zeromount-${{ inputs.android_version }}-${{ inputs.kernel_version }}.patch"
         if [ -f "$PATCH_FILE" ]; then
           echo "Applying ZeroMount patch: $PATCH_FILE"
           patch -p1 -F3 --no-backup-if-mismatch < "$PATCH_FILE"
